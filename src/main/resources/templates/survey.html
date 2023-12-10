@@ -1,0 +1,29 @@
+<!-- src/main/resources/templates/survey.html -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+</head>
+<body>
+
+<h2>Survey Form</h2>
+
+<form th:action="@{/submitSurvey}" th:object="${surveyResponse}" method="post">
+    <label for="respondentName">Respondent Name:</label>
+    <input type="text" id="respondentName" th:field="*{respondentName}" required><br>
+
+    <label for="surveyQuestion">Survey Question:</label>
+    <input type="text" id="surveyQuestion" th:field="*{surveyQuestion}" required><br>
+
+    <label for="answer">Answer:</label>
+    <input type="text" id="answer" th:field="*{answer}" required><br>
+
+    <button type="submit">Submit Survey</button>
+</form>
+
+</body>
+</html>
