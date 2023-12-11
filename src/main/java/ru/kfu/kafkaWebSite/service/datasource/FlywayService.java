@@ -1,4 +1,4 @@
-package ru.kfu.kafkaWebSite.service;
+package ru.kfu.kafkaWebSite.service.datasource;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
