@@ -1,4 +1,4 @@
-package ru.kfu.kafkaWebSite.repository;
+package ru.kfu.kafkaWebSite.repository.survey;
 
 // SurveyResponseRepository.java
 
