@@ -9,7 +9,7 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
-import ru.kfu.kafkaWebSite.dto.SurveyResponseDto;
+import ru.kfu.kafkaWebSite.dto.survey.SurveyResponseDto;
 
 import java.util.HashMap;
 import java.util.Map;

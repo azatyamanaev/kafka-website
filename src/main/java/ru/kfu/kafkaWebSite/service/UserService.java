@@ -1,4 +1,4 @@
 package ru.kfu.kafkaWebSite.service;
 
-public class SurveyResponseService {
+public interface UserService {
 }
