@@ -12,7 +12,7 @@
 
 <h2>Survey Form</h2>
 
-<form th:action="@{/submitSurvey}" th:object="${surveyResponse}" method="post">
+<form th:action="@{/submitSurvey}" th:object="${surveyResponseDto}" method="post">
     <label for="respondentName">Respondent Name:</label>
     <input type="text" id="respondentName" th:field="*{respondentName}" required><br>
 

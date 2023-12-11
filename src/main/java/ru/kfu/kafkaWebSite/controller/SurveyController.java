@@ -9,19 +9,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.kfu.kafkaWebSite.model.SurveyResponse;
+import ru.kfu.kafkaWebSite.dto.SurveyResponseDto;
 import ru.kfu.kafkaWebSite.repository.SurveyResponseRepository;
-import ru.kfu.kafkaWebSite.repository.entity.SurveyResponseEntity;
+import ru.kfu.kafkaWebSite.model.SurveyResponse;
 
 @Controller
 public class SurveyController {
 
-    private final KafkaTemplate<String, SurveyResponse> kafkaTemplate;
+    private final KafkaTemplate<String, SurveyResponseDto> kafkaTemplate;
     private final SurveyResponseRepository surveyResponseRepository;
 
     @Autowired
     public SurveyController(
-            KafkaTemplate<String, SurveyResponse> kafkaTemplate,
+            KafkaTemplate<String, SurveyResponseDto> kafkaTemplate,
             SurveyResponseRepository surveyResponseRepository) {
         this.kafkaTemplate = kafkaTemplate;
         this.surveyResponseRepository = surveyResponseRepository;
@@ -29,21 +29,21 @@ public class SurveyController {
 
     @GetMapping("/survey")
     public String surveyForm(Model model) {
-        model.addAttribute("surveyResponse", new SurveyResponse());
+        model.addAttribute("surveyResponse", new SurveyResponseDto());
         return "survey";
     }
 
     @PostMapping("/submitSurvey")
-    public String submitSurvey(@ModelAttribute SurveyResponse surveyResponse) {
+    public String submitSurvey(@ModelAttribute SurveyResponseDto surveyResponseDto) {
         // Save survey response to the database
-        SurveyResponseEntity entity = new SurveyResponseEntity();
-        entity.setRespondentName(surveyResponse.getRespondentName());
-        entity.setSurveyQuestion(surveyResponse.getSurveyQuestion());
-        entity.setAnswer(surveyResponse.getAnswer());
+        SurveyResponse entity = new SurveyResponse();
+        entity.setRespondentName(surveyResponseDto.getRespondentName());
+        entity.setSurveyQuestion(surveyResponseDto.getSurveyQuestion());
+        entity.setAnswer(surveyResponseDto.getAnswer());
         surveyResponseRepository.save(entity);
 
         // Publish survey response to Kafka topic
-        kafkaTemplate.send("surveyResponses", surveyResponse);
+        kafkaTemplate.send("surveyResponses", surveyResponseDto);
 
         return "redirect:/survey";
     }
