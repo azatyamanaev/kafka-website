@@ -12,7 +12,7 @@ import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
-import ru.kfu.kafkaWebSite.dto.SurveyResponseDto;
+import ru.kfu.kafkaWebSite.dto.survey.SurveyResponseDto;
 
 import java.util.HashMap;
 import java.util.Map;

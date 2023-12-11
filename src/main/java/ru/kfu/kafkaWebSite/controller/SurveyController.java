@@ -9,9 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.kfu.kafkaWebSite.dto.SurveyResponseDto;
-import ru.kfu.kafkaWebSite.repository.SurveyResponseRepository;
-import ru.kfu.kafkaWebSite.model.SurveyResponse;
+import ru.kfu.kafkaWebSite.dto.survey.SurveyResponseDto;
+import ru.kfu.kafkaWebSite.repository.survey.SurveyResponseRepository;
+import ru.kfu.kafkaWebSite.model.survey.SurveyResponse;
 
 @Controller
 public class SurveyController {
