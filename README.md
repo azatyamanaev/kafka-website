@@ -25,11 +25,17 @@
 1. Склонируйте репозиторий:
 
     ```bash
-    git clone https://github.com/yourusername/online-survey.git
-    cd online-survey
+    git clone https://github.com/azatyamanaev/kafka-website.git
+    cd kafka-website
     ```
 
-2. Установите зависимости и запустите приложение:
+2. В терминале перейдите в каталог с файлом docker-compose.yml и выполните следующую команду для поднятия Kafka и PostgreSQL:
+
+    ```bash
+    docker-compose up -d
+    ```
+    
+3. Установите зависимости и запустите приложение:
 
     ```bash
     mvn spring-boot:run
@@ -37,7 +43,7 @@
 
     Как альтернатива: через запуск в IDE метода main() класса SurveyApplication 
 
-3. Откройте веб-браузер и перейдите по адресу [http://localhost:8080/survey](http://localhost:8080/survey).
+4. Откройте веб-браузер и перейдите по адресу [http://localhost:8080/survey](http://localhost:8080/survey).
 
 ## Настройки базы данных
 
