@@ -17,7 +17,7 @@ public class AnswerDto {
 
     private Long id;
     private String text;
-    private List<QuestionChoiceDto> chosen;
+    private List<AnswerOptionResponseDto> chosen;
     private Question.Type type;
     private RespondentDto respondent;
 }

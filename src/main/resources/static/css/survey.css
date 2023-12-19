@@ -1,0 +1,44 @@
+:root {
+    --light-gray: #dad4e5;
+    --dark-gray: #8771af;
+    --darker-gray: #795ea6;
+    --mid-gray: #dcd5fa;
+}
+
+body {
+    background-color: var(--light-gray);
+}
+
+.card {
+    border-color: var(--dark-gray);
+    border-width: 0.2rem;
+    border-radius: 0.7rem;
+}
+
+.card-head {
+    border-radius: 0.535rem 0.535rem 0 0;
+    background-color: var(--mid-gray);
+}
+
+.card-split {
+    margin: 0;
+    border-width: 0.2rem;
+    border-color: var(--dark-gray);
+}
+
+.input-text {
+    border-width: 0.2rem;
+    border-color: var(--mid-gray);
+}
+
+.btn-primary {
+    background-color: var(--dark-gray);
+}
+
+.btn-primary:hover {
+    background-color: var(--darker-gray);
+}
+
+.btn-primary, .btn-primary:hover {
+    border-width: 0;
+}
