@@ -22,7 +22,6 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractAuditableDeletableEntity extends AbstractEntity {
 
-
     @CreatedDate
     @Type(type = "java.time.Instant")
     private Instant createTime;

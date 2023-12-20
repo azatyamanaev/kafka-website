@@ -23,12 +23,12 @@ public class Question extends AbstractEntity {
     @Column(nullable = false)
     private String text;
 
-    @OneToMany(mappedBy = "question")
-    private List<QuestionChoice> choices;
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AnswerOption> answerOptions;
 
     @Builder.Default
     @Column(nullable = false, name = "is_required")
-    private Boolean isRequired = true;
+    private Boolean isRequired = Boolean.FALSE;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
