@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments :: head ('Регистрация')"></head>
+<body>
+<div th:replace="fragments :: scripts"></div>
+
+<div class="d-flex align-items-center" style="min-height: 100vh">
+    <form class="container" th:action="@{/sign-up}" th:object="${userDto}" method="post">
+        <fieldset>
+            <div class="card mt-3">
+                <div class="card-head">
+                    <h4 class="font-weight-bold m-3">Регистрация</h4>
+                    <hr class="card-split">
+                </div>
+
+                <div class="card-description error" th:if="${error == '1'}">
+                    <p class="m-3">Пользователь с такой почтой уже существует</p>
+                </div>
+
+                <div class="card-description error" th:if="${error == '2'}">
+                    <p class="m-3">Пароли не совпадают</p>
+                </div>
+
+                <div class="card-answer input-group mt-3 align-items-center">
+                    <span class="ml-3 same-size">Почта:</span>
+                    <input type="email" class="form-control mx-3 input-text" name="email" th:field="*{email}" required>
+                </div>
+
+                <div class="card-answer input-group mt-3 align-items-center">
+                    <span class="ml-3 same-size">Имя:</span>
+                    <input type="text" class="form-control mx-3 input-text" name="name" th:field="*{name}" required>
+                </div>
+
+                <div class="card-answer input-group mt-3 align-items-center">
+                    <span class="ml-3 same-size">Пароль:</span>
+                    <input type="password" class="form-control mx-3 input-text" name="password" th:field="*{password}" required>
+                </div>
+
+                <div class="card-answer input-group mt-3 align-items-center">
+                    <span class="ml-3 same-size">Повторите пароль:</span>
+                    <input type="password" class="form-control mx-3 input-text" name="repeatPassword" th:field="*{repeatPassword}" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary mx-3 mt-3 flex-fill">Зарегистрироваться</button>
+
+                <div class="mb-3"></div>
+
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+</body>
+</html>
