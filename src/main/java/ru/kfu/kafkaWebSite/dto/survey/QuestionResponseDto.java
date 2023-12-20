@@ -7,6 +7,6 @@ import java.util.List;
 @Data
 public class QuestionResponseDto {
 
-    private Long id;
+    private Long questionId;
     private List<AnswerOptionResponseDto> answers;
 }

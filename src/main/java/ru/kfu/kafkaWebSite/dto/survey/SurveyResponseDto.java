@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class SurveyResponseDto {
 
-    private String id;
+    private String surveyId;
     private String respondentName;
     private List<QuestionResponseDto> questions;
 }
