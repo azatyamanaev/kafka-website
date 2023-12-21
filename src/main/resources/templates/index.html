@@ -18,11 +18,14 @@
 
                 <div class="flex-column d-flex" th:if="${user == null}">
                     <a class="btn btn-primary mx-3 mt-3 flex-fill" th:href="@{/sign-in}">Войти и посмотреть свои опросы</a>
+                    <a class="btn btn-primary mx-3 mt-3 flex-fill" th:href="@{/surveys}">Пройти опрос</a>
                     <a class="btn btn-primary mx-3 mt-3 flex-fill" th:href="@{/sign-up}">Зарегистрироваться</a>
                 </div>
                 <div class="flex-column d-flex" th:unless="${user == null}">
                     <a class="btn btn-primary mx-3 mt-3 flex-fill" th:href="@{/create-survey}">Создать опрос</a>
-                    <a class="btn btn-primary mx-3 mt-3 flex-fill" th:href="@{/surveys}">Посмотреть созданные опросы</a>
+                    <a class="btn btn-primary mx-3 mt-3 flex-fill" th:href="@{/surveys/self}">Посмотреть созданные опросы</a>
+                    <a class="btn btn-primary mx-3 mt-3 flex-fill" th:href="@{/surveys}">Пройти опрос</a>
+                    <a class="btn btn-primary mx-3 mt-3 flex-fill" th:href="@{/sign-out}">Выход с сайта</a>
                 </div>
 
                 <div class="mb-3"></div>
