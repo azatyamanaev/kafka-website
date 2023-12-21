@@ -1,5 +1,5 @@
 
-create table answer_option_responses (
+create table if not exists answer_option_responses (
                                          id int8 not null,
                                          text varchar(255),
                                          answer_option_id int8 not null,
@@ -7,7 +7,7 @@ create table answer_option_responses (
                                          primary key (id)
 );
 
-create table answer_options (
+create table if not exists answer_options (
                                 id int8 not null,
                                 is_correct boolean,
                                 text varchar(255),
@@ -15,7 +15,7 @@ create table answer_options (
                                 primary key (id)
 );
 
-create table question_responses (
+create table if not exists question_responses (
                                     id int8 not null,
                                     question_id int8 not null,
                                     survey_response_id int8 not null,

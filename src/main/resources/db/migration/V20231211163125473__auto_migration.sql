@@ -1,4 +1,4 @@
-create table answers
+create table if not exists answers
 (
     id            int8 not null,
     text          varchar(255),
@@ -8,7 +8,7 @@ create table answers
     primary key (id)
 );
 
-create table question_choices
+create table if not exists question_choices
 (
     id          int8         not null,
     text        varchar(255) not null,
@@ -17,7 +17,7 @@ create table question_choices
     primary key (id)
 );
 
-create table questions
+create table if not exists questions
 (
     id          int8         not null,
     is_required boolean      not null,
@@ -28,14 +28,14 @@ create table questions
     primary key (id)
 );
 
-create table respondents
+create table if not exists respondents
 (
     id   int8 not null,
     name varchar(255),
     primary key (id)
 );
 
-create table survey_responses
+create table if not exists survey_responses
 (
     id              int8 not null,
     answer          varchar(255),
@@ -44,7 +44,7 @@ create table survey_responses
     primary key (id)
 );
 
-create table surveys
+create table if not exists surveys
 (
     id          int8         not null,
     create_time timestamp,
@@ -55,7 +55,7 @@ create table surveys
     primary key (id)
 );
 
-create table users
+create table if not exists users
 (
     id            int8         not null,
     create_time   timestamp,
@@ -67,13 +67,13 @@ create table users
     role          varchar(255) not null,
     primary key (id)
 );
-create sequence answers_seq start 1 increment 1;
-create sequence question_choices_seq start 1 increment 1;
-create sequence questions_seq start 1 increment 1;
-create sequence respondents_seq start 1 increment 1;
-create sequence survey_responses_seq start 1 increment 1;
-create sequence surveys_seq start 1 increment 1;
-create sequence users_seq start 1 increment 1;
+create sequence if not exists answers_seq start 1 increment 1;
+create sequence if not exists question_choices_seq start 1 increment 1;
+create sequence if not exists questions_seq start 1 increment 1;
+create sequence if not exists respondents_seq start 1 increment 1;
+create sequence if not exists survey_responses_seq start 1 increment 1;
+create sequence if not exists surveys_seq start 1 increment 1;
+create sequence if not exists users_seq start 1 increment 1;
 
 alter table if exists answers
     add constraint FK3erw1a3t0r78st8ty27x6v3g1
