@@ -1,1 +1,0 @@
-drop table survey_responses;

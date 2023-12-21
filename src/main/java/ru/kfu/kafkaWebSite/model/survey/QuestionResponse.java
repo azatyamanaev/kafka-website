@@ -7,14 +7,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import ru.kfu.kafkaWebSite.model.base.AbstractEntity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Getter
@@ -24,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "question_responses")
+@SequenceGenerator(name = AbstractEntity.GENERATOR, sequenceName = "question_responses_seq", allocationSize = 1)
 public class QuestionResponse extends AbstractEntity {
 
     @JoinColumn(nullable = false, name = "survey_response_id")

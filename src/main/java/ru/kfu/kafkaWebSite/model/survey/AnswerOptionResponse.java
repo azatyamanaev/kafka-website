@@ -7,12 +7,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import ru.kfu.kafkaWebSite.model.base.AbstractEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -21,6 +16,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Entity
 @Table(name = "answer_option_responses")
+@SequenceGenerator(name = AbstractEntity.GENERATOR, sequenceName = "answer_option_responses_seq", allocationSize = 1)
 public class AnswerOptionResponse extends AbstractEntity {
 
     @Column

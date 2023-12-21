@@ -23,9 +23,8 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Entity
 @Table(name = "answer_options")
-@SequenceGenerator(name = AbstractEntity.GENERATOR, sequenceName = "answers_seq", allocationSize = 1)
-public class
-AnswerOption extends AbstractEntity {
+@SequenceGenerator(name = AbstractEntity.GENERATOR, sequenceName = "answer_options_seq", allocationSize = 1)
+public class AnswerOption extends AbstractEntity {
 
     @Column
     private String text;
