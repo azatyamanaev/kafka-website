@@ -1,19 +1,24 @@
 version: '2'
 
 services:
+
   zookeeper:
+    container_name: zookeper
+    restart: always
     image: bitnami/zookeeper:latest
     ports:
-      - "2181:2181"
+      - "22181:22181"
     environment:
       ALLOW_ANONYMOUS_LOGIN: "yes"
 
   kafka:
+    container_name: kafka
+    restart: always
     image: bitnami/kafka:latest
     ports:
-      - "9092:9092"
+      - "19092:19092"
     expose:
-      - "9093"
+      - "19093"
     environment:
       KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9093,OUTSIDE://localhost:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
@@ -24,11 +29,34 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  postgres:
-    image: postgres:latest
+  app:
+    container_name: kafka-app
+    restart: always
+    image: kafka-app:latest
     environment:
-      POSTGRES_DB: kafka_website
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      DB_NAME: "kafka_website"
+      DB_PORT: "5432"
+      DB_HOST: "postgres"
+      DB_USER: "postgres"
+      DB_PASS: "postgres"
     ports:
-      - "5432:5432"
+      - "8080:8080"
+
+
+  postgres:
+    container_name: postgres
+    restart: always
+    image: postgres:16-alpine
+    ports:
+      - "15432:15432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "kafka_website"
+    volumes:
+      - ./db-data/:/var/lib/postgresql/data/
+    expose:
+      - "15432"
+
+
+
