@@ -13,7 +13,7 @@
         </div>
 
         <div th:each="survey : ${surveys}">
-            <a class="card m-3" th:href="@{/surveys/{id}/stat(id=${survey.id})}">
+            <a class="card m-3" th:href="@{/surveys/{id}(id=${survey.id})}">
                 <div class="card-head">
                     <h4 class="font-weight-bold m-3" th:text="${survey.name} + ' | автор - ' + ${survey.author.name}">Название</h4>
                     <hr class="card-split">
