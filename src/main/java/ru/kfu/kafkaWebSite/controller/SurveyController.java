@@ -72,11 +72,19 @@ public class SurveyController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/surveys")
+    @GetMapping("/surveys/self")
     public String browseSurveys(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
         List<SurveyDto> surveys = surveyService.getSurveysByAuthorId(userDetails.getId());
         model.addAttribute("surveys", surveys);
         return "browse-surveys";
+    }
+
+    @PreAuthorize("permitAll()")
+    @GetMapping("/surveys")
+    public String browseSurveysUnauthorized(Model model) {
+        List<SurveyDto> surveys = surveyService.getAll();
+        model.addAttribute("surveys", surveys);
+        return "browse-surveys-unauthorized";
     }
 
     @PreAuthorize("isAuthenticated()")

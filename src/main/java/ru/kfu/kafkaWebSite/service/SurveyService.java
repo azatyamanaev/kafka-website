@@ -15,6 +15,8 @@ public interface SurveyService {
 
     List<SurveyDto> getSurveysByAuthorId(Long userId);
 
+    List<SurveyDto> getAll();
+
     void saveSurveyResponse(SurveyResponseDto surveyResponseDto);
 
     SurveyStatDto getSurveyStatDto(Long surveyId, Long authorId);
