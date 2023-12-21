@@ -17,7 +17,8 @@ public class QuestionDto {
     private Long id;
     private Integer number;
     private String text;
-    private List<QuestionChoiceDto> choices;
     private Boolean isRequired;
+    private Boolean isVerifiable;
     private Question.Type type;
+    private List<AnswerOptionDto> answerOptions;
 }

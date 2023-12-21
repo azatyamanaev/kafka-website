@@ -1,0 +1,114 @@
+:root {
+    --light-gray: #e8e4ef;
+    --dark-gray: #8771af;
+    --darker-gray: #3e2c4f;
+    --mid-gray: #dcd5fa;
+    --light-red: #e8b2b2;
+}
+
+body {
+    background-color: var(--light-gray);
+}
+
+.card {
+    border-color: var(--dark-gray);
+    border-width: 0.2rem;
+    border-radius: 0.7rem;
+}
+
+.card-head {
+    border-radius: 0.535rem 0.535rem 0 0;
+    background-color: var(--mid-gray);
+}
+
+.card-split {
+    margin: 0;
+    border-width: 0.2rem;
+    border-color: var(--dark-gray);
+}
+
+.input-text {
+    border-width: 0.2rem;
+    border-color: var(--mid-gray);
+}
+
+.btn-primary {
+    background-color: var(--dark-gray);
+}
+
+.btn-primary:hover {
+    background-color: var(--darker-gray);
+}
+
+.btn-primary, .btn-primary:hover {
+    border-width: 0;
+}
+
+.same-size {
+    width: 6rem;
+}
+
+.error {
+    background-color: var(--light-red);
+    color: darkred;
+    font-weight: bold;
+}
+
+.bg-transparent {
+    font-size: 1.5rem;
+    border-width: 0;
+}
+
+.new-element {
+    opacity: 30%;
+}
+
+.new-element:hover {
+    opacity: 100%;
+}
+
+.btn-secondary {
+    background-color: var(--mid-gray);
+    border-width: 0;
+}
+
+.btn-secondary:hover {
+    background-color: var(--dark-gray);
+}
+
+.btn-secondary:checked,.btn-secondary.active,.btn-secondary:not(:disabled):not(.disabled).active {
+    background-color: var(--dark-gray);
+}
+
+a.card {
+    color: var(--darker-gray);
+}
+
+a.card:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.table .thead-light th {
+    color: black;
+    background-color: var(--mid-gray);
+    border-width: 0.25rem;
+    border-color: var(--dark-gray);
+}
+
+.table .thead-light th a {
+    color: var(--darker-gray);
+}
+.table .thead-light th a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.table td,.table th {
+    border-color: var(--dark-gray);
+    border-width: 0.25rem;
+}
+
+.question-th {
+    background-color: var(--light-gray);
+}

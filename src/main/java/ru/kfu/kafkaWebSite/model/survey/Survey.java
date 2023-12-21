@@ -32,7 +32,7 @@ public class Survey extends AbstractAuditableDeletableEntity {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private User author;
 
-    @OneToMany(mappedBy = "survey", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "survey", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderBy("number")
     private List<Question> questions;
 

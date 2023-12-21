@@ -1,14 +1,13 @@
 package ru.kfu.kafkaWebSite.dto.survey;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+import java.util.List;
+
+@Data
 public class SurveyResponseDto {
 
-    private Long id;
+    private String surveyId;
     private String respondentName;
-    private String surveyQuestion;
-    private String answer;
+    private List<QuestionResponseDto> questions;
 }

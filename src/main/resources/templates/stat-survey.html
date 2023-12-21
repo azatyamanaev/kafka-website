@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments :: head ('Cтатистика опроса: ' + ${statDto.getSurvey().name})"></head>
+<body style="background-color: #ffffff">
+<div th:replace="fragments :: scripts"></div>
+
+<table class="table">
+    <thead class="thead-light">
+    <tr>
+        <th scope="col"><a th:href="@{/surveys/{id}(id=${statDto.survey.id})}" th:text="${statDto.survey.name}"></a></th>
+        <div th:each="resp : ${statDto.respondentList}">
+            <th scope="col" th:text="${resp.respondentName}"></th>
+        </div>
+    </tr>
+    </thead>
+    <tbody>
+
+    <div th:each="question : ${statDto.survey.questions}">
+        <tr>
+            <th class="font-weight-bold question-th" th:text="${question.text}"></th>
+            <div th:each="resp : ${statDto.respondentList}">
+                <td class="question-th"></td>
+            </div>
+        </tr>
+
+        <div th:each="answer : ${question.answerOptions}">
+            <tr>
+            <th class="font-weight-normal" th:text="${answer.text}"></th>
+            <div th:each="resp : ${statDto.respondentList}">
+                <div th:if="${resp.answerIdInputs.containsKey(answer.id)}">
+                    <div th:if="${#strings.toString(question.type) == 'RADIO' or #strings.toString(question.type) == 'MULTI'}">
+                        <td class="font-weight-bold">X</td>
+                    </div>
+                    <div th:if="${#strings.toString(question.type) == 'INPUT'}">
+                        <td th:text="${resp.answerIdInputs.get(answer.id)}"></td>
+                    </div>
+                </div>
+                <div th:unless="${resp.answerIdInputs.containsKey(answer.id)}">
+                    <td></td>
+                </div>
+            </div>
+            </tr>
+        </div>
+    </div>
+
+    </tbody>
+</table>
+
+</body>
+</html>

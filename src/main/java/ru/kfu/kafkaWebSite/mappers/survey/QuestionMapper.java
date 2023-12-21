@@ -9,9 +9,11 @@ import ru.kfu.kafkaWebSite.model.survey.Question;
 
 @Mapper(componentModel = "spring",
         uses = {EntityIdsMapper.class,
-                QuestionChoiceMapper.class},
+                AnswerOptionMapper.class},
         injectionStrategy = InjectionStrategy.CONSTRUCTOR)
-public interface QuestionMapper extends DtoMapper<Question, QuestionDto> {
+public interface QuestionMapper {
 
+    Question toQuestion(QuestionDto questionDto);
 
+    QuestionDto toQuestionDto(Question question);
 }

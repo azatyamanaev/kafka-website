@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments :: head ('Главная страница')"></head>
+<body>
+<div th:replace="fragments :: scripts"></div>
+
+<div class="d-flex align-items-center" style="min-height: 100vh">
+    <form class="container" method="post">
+        <fieldset>
+            <div class="card mt-3">
+                <div class="card-head">
+                    <h4 class="font-weight-bold m-3">KAFKA WEBSITE ОПРОСЫ</h4>
+                    <hr class="card-split">
+                </div>
+                <div class="card-description">
+                    <p class="mx-3 mt-3 mb-0">Добро пожаловать на сайт опросов KAFKA WEBSITE</p>
+                </div>
+
+                <div class="flex-column d-flex" th:if="${user == null}">
+                    <a class="btn btn-primary mx-3 mt-3 flex-fill" th:href="@{/sign-in}">Войти и посмотреть свои опросы</a>
+                    <a class="btn btn-primary mx-3 mt-3 flex-fill" th:href="@{/sign-up}">Зарегистрироваться</a>
+                </div>
+                <div class="flex-column d-flex" th:unless="${user == null}">
+                    <a class="btn btn-primary mx-3 mt-3 flex-fill" th:href="@{/create-survey}">Создать опрос</a>
+                    <a class="btn btn-primary mx-3 mt-3 flex-fill" th:href="@{/surveys}">Посмотреть созданные опросы</a>
+                </div>
+
+                <div class="mb-3"></div>
+
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+</body>
+</html>
