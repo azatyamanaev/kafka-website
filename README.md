@@ -50,6 +50,8 @@
 
 6. Откройте веб-браузер и перейдите по адресу [http://localhost:8080](http://localhost:8080).
 
+7. Загруженность Apache Kafka можно будет посмотреть по адресу [http://localhost:8082](http://localhost:8082).
+
 ## Настройки базы данных
 
 - Имя базы данных: your_database_name
