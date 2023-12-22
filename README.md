@@ -10,7 +10,8 @@
 - PostgreSQL
 - Thymeleaf
 - Apache Kafka 
-- Bootstrap 
+- Bootstrap
+- FLyway
 
 ## Зависимости
 
@@ -19,6 +20,7 @@
 - Java Development Kit (JDK) 11
 - Maven
 - PostgreSQL
+- Docker
 
 ## Запуск приложения
 
@@ -28,22 +30,25 @@
     git clone https://github.com/azatyamanaev/kafka-website.git
     cd kafka-website
     ```
-
-2. В терминале перейдите в каталог с файлом docker-compose.yml и выполните следующую команду для поднятия Kafka и PostgreSQL:
-
-    ```bash
-    docker-compose up -d
-    ```
     
-3. Установите зависимости и запустите приложение:
+2. Выполните команду:
+   ```bash
+    mvn clean package
+    ```
+   
+3. Скопируйте файл app.jar из папки target в папку docker
 
+4. В терминале перейдите в папку docker и выполните команду:
     ```bash
-    mvn spring-boot:run
+    docker build -t kafka-app:latest .
     ```
 
-    Как альтернатива: через запуск в IDE метода main() класса SurveyApplication 
+5. Перейдите в корень проекта и выполните команду:
+   ```bash
+    docker-сompose -f docker-compose.yml up -d
+    ```
 
-4. Откройте веб-браузер и перейдите по адресу [http://localhost:8080/survey](http://localhost:8080/survey).
+6. Откройте веб-браузер и перейдите по адресу [http://localhost:8080](http://localhost:8080).
 
 ## Настройки базы данных
 
