@@ -43,7 +43,7 @@ services:
     depends_on:
       - kafka
     ports:
-      - "8080:8080"
+      - "8082:8080"
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
@@ -59,18 +59,15 @@ services:
       - kafka
       - postgres
     environment:
-      PRODUCER_HOST: "kafka"
-      PRODUCER_PORT: "29092"
-      CONSUMER_HOST: "kafka"
-      CONSUMER_PORT: "29092"
-      APP_PORT: "8089"
+      BROKER_HOST: "kafka"
+      BROKER_PORT: "29092"
       DB_NAME: "kafka_website"
       DB_PORT: "5432"
       DB_HOST: "postgres"
       DB_USER: "postgres"
       DB_PASS: "postgres"
     ports:
-      - "8089:8089"
+      - "8080:8080"
 
 
   postgres:

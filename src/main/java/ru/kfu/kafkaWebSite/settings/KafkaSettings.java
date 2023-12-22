@@ -14,10 +14,8 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "app.kafka")
 public class KafkaSettings {
 
-    private String producerHost;
-    private String producerPort;
-    private String consumerHost;
-    private String consumerPort;
+    private String brokerHost;
+    private String brokerPort;
 
     @Getter
     private String consumerGroup;
@@ -25,11 +23,7 @@ public class KafkaSettings {
     @Getter
     private String trustedPackages;
 
-    public String getProducerConfig() {
-        return producerHost + ":" + producerPort;
-    }
-
-    public String getConsumerConfig() {
-        return consumerHost + ":" + consumerPort;
+    public String getBrokerConfig() {
+        return brokerHost + ":" + brokerPort;
     }
 }
