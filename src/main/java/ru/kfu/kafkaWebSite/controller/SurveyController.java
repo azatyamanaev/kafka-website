@@ -2,6 +2,7 @@ package ru.kfu.kafkaWebSite.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -24,10 +25,12 @@ import java.util.Optional;
 public class SurveyController {
 
     private final SurveyService surveyService;
+    private final KafkaTemplate<String, SurveyResponseDto> kafkaTemplate;
 
     @Autowired
-    public SurveyController(SurveyService surveyService) {
+    public SurveyController(SurveyService surveyService, KafkaTemplate<String, SurveyResponseDto> kafkaTemplate) {
         this.surveyService = surveyService;
+        this.kafkaTemplate = kafkaTemplate;
     }
 
     @GetMapping
@@ -67,7 +70,8 @@ public class SurveyController {
     public ResponseEntity<?> endSurvey(@PathVariable(name = "id") Long surveyId,
                                        @RequestBody SurveyResponseDto surveyResponseDto) {
         System.out.println(surveyResponseDto);
-        surveyService.saveSurveyResponse(surveyResponseDto);
+        kafkaTemplate.send("surveyResponses", surveyResponseDto);
+        //surveyService.saveSurveyResponse(surveyResponseDto);
         return ResponseEntity.ok("success");
     }
 

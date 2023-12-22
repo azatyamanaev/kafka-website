@@ -1,5 +1,6 @@
 package ru.kfu.kafkaWebSite.service.impl;
 
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import ru.kfu.kafkaWebSite.dto.survey.RespondentResponseDto;
 import ru.kfu.kafkaWebSite.dto.survey.SurveyDto;
@@ -64,6 +65,7 @@ public class SurveyServiceImpl implements SurveyService {
                 .collect(Collectors.toList());
     }
 
+    @KafkaListener(topics = "surveyResponses", groupId = "group_id")
     @Override
     public void saveSurveyResponse(SurveyResponseDto surveyResponseDto) {
         SurveyResponse surveyResponse = surveyResponseMapper.toSurveyResponse(surveyResponseDto);
