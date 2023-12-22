@@ -18,45 +18,59 @@ services:
     hostname: kafka
     container_name: kafka
     restart: always
-    image: confluentinc/cp-server:7.2.1
+    image: confluentinc/cp-kafka:7.2.1
     depends_on:
       - zookeeper
     ports:
       - "9092:9092"
       - "9997:9997"
+    expose:
+      - "29092"
     environment:
-      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9093,OUTSIDE://localhost:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
-      KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
-      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_BROKER_ID: 1
-      KAFKA_CREATE_TOPICS: "surveyResponses:1:1"
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_MIN_INSYNC_REPLICAS: 1
       KAFKA_JMX_PORT: 9997
       KAFKA_JMX_HOSTNAME: kafka
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
 
   kafka-ui:
     container_name: kafka-ui
     image: provectuslabs/kafka-ui:latest
+    depends_on:
+      - kafka
     ports:
       - "8080:8080"
     environment:
-      - DYNAMIC_CONFIG_ENABLED=true
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
+      KAFKA_CLUSTERS_0_METRICS_PORT: 9997
+      KAFKA_CLUSTERS_0_METRICS_TYPE: JMX
+      DYNAMIC_CONFIG_ENABLED: "true"
 
   app:
     container_name: kafka-app
     restart: always
     image: kafka-app:latest
+    depends_on:
+      - kafka
+      - postgres
     environment:
+      PRODUCER_HOST: "kafka"
+      PRODUCER_PORT: "29092"
+      CONSUMER_HOST: "kafka"
+      CONSUMER_PORT: "29092"
+      APP_PORT: "8089"
       DB_NAME: "kafka_website"
       DB_PORT: "5432"
       DB_HOST: "postgres"
       DB_USER: "postgres"
       DB_PASS: "postgres"
     ports:
-      - "8081:8081"
+      - "8089:8089"
 
 
   postgres:
