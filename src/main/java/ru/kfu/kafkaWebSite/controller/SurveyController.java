@@ -16,6 +16,7 @@ import ru.kfu.kafkaWebSite.dto.survey.SurveyResponseDto;
 import ru.kfu.kafkaWebSite.dto.survey.SurveyStatDto;
 import ru.kfu.kafkaWebSite.security.details.UserDetailsImpl;
 import ru.kfu.kafkaWebSite.service.SurveyService;
+import ru.kfu.kafkaWebSite.settings.KafkaSettings;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -70,7 +71,7 @@ public class SurveyController {
     public ResponseEntity<?> endSurvey(@PathVariable(name = "id") Long surveyId,
                                        @RequestBody SurveyResponseDto surveyResponseDto) {
         System.out.println(surveyResponseDto);
-        kafkaTemplate.send("surveyResponses", surveyResponseDto);
+        kafkaTemplate.send(KafkaSettings.SURVEY_TOPIC, surveyResponseDto);
         //surveyService.saveSurveyResponse(surveyResponseDto);
         return ResponseEntity.ok("success");
     }

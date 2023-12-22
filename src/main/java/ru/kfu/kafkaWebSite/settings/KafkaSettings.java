@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "app.kafka")
 public class KafkaSettings {
 
+    public final static String SURVEY_TOPIC = "survey_responses";
+
     private String brokerHost;
     private String brokerPort;
 
