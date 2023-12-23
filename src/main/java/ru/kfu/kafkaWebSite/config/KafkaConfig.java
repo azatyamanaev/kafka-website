@@ -41,8 +41,8 @@ public class KafkaConfig {
     public NewTopic surveyTopic() {
         return TopicBuilder
                 .name(KafkaSettings.SURVEY_TOPIC)
-                .replicas(3)
-                .partitions(4)
+                .replicas(settings.getSurveyReplicas())
+                .partitions(settings.getSurveyPartitions())
                 .build();
     }
 

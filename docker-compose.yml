@@ -163,6 +163,8 @@ services:
         condition: service_started
     environment:
       BROKER_CONFIG: "kafka1:29092,kafka2:29093,kafka3:29094"
+      SURVEY_REPLICAS: 3
+      SURVEY_PARTITIONS: 5
       DB_NAME: "kafka_website"
       DB_PORT: "5432"
       DB_HOST: "postgres"

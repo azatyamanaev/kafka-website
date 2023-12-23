@@ -19,4 +19,6 @@ public class KafkaSettings {
     private String brokerConfig;
     private String consumerGroup;
     private String trustedPackages;
+    private Integer surveyReplicas;
+    private Integer surveyPartitions;
 }
