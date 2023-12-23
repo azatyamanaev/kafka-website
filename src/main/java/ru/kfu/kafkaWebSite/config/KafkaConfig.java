@@ -11,8 +11,6 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.kafka.annotation.EnableKafka;
-import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.*;
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
@@ -43,8 +41,8 @@ public class KafkaConfig {
     public NewTopic surveyTopic() {
         return TopicBuilder
                 .name(KafkaSettings.SURVEY_TOPIC)
-                .replicas(1)
-                .partitions(3)
+                .replicas(3)
+                .partitions(4)
                 .build();
     }
 

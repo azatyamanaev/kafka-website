@@ -26,9 +26,9 @@ services:
           memory: 500MB
 
 
-  kafka:
-    hostname: kafka
-    container_name: kafka
+  kafka1:
+    hostname: kafka1
+    container_name: kafka1
     restart: always
     image: confluentinc/cp-kafka:7.2.1
     depends_on:
@@ -36,42 +36,109 @@ services:
         condition: service_healthy
     ports:
       - "9092:9092"
-      - "9997:9997"
     healthcheck:
       test: nc -z localhost 9092 || exit -1
-      start_period: 10s
-      interval: 5s
-      timeout: 10s
-      retries: 10
-    expose:
-      - "29092"
+      start_period: 5s
+      interval: 7s
+      timeout: 5s
+      retries: 5
     environment:
       KAFKA_BROKER_ID: 1
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_ADVERTISED_HOST_NAME: kafka
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
-      KAFKA_JMX_PORT: 9997
-      KAFKA_JMX_HOSTNAME: kafka
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_HOST_NAME: kafka1
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka1:29092,EXTERNAL://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
       KAFKA_MIN_INSYNC_REPLICAS: 1
-      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
+      KAFKA_JMX_PORT: 9997
     deploy:
       resources:
         limits:
           cpus: 2
           memory: 1.5GB
 
+  kafka2:
+    hostname: kafka2
+    container_name: kafka2
+    restart: always
+    image: confluentinc/cp-kafka:7.2.1
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+    ports:
+      - "9093:9093"
+    healthcheck:
+      test: nc -z localhost 9093 || exit -1
+      start_period: 5s
+      interval: 7s
+      timeout: 5s
+      retries: 5
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_HOST_NAME: kafka2
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka2:29093,EXTERNAL://localhost:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_MIN_INSYNC_REPLICAS: 1
+      KAFKA_JMX_PORT: 9997
+    deploy:
+      resources:
+        limits:
+          cpus: 2
+          memory: 1.5GB
+
+  kafka3:
+    hostname: kafka3
+    container_name: kafka3
+    restart: always
+    image: confluentinc/cp-kafka:7.2.1
+    depends_on:
+      zookeeper:
+        condition: service_healthy
+    ports:
+      - "9094:9094"
+    healthcheck:
+      test: nc -z localhost 9094 || exit -1
+      start_period: 5s
+      interval: 7s
+      timeout: 5s
+      retries: 5
+    environment:
+      KAFKA_BROKER_ID: 3
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_HOST_NAME: kafka3
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka3:29094,EXTERNAL://localhost:9094
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_MIN_INSYNC_REPLICAS: 1
+      KAFKA_JMX_PORT: 9997
+    deploy:
+      resources:
+        limits:
+          cpus: 2
+          memory: 1.5GB
+
+
+
   kafka-ui:
     container_name: kafka-ui
     image: provectuslabs/kafka-ui:latest
     depends_on:
-      - kafka
+      kafka1:
+        condition: service_healthy
+      kafka2:
+        condition: service_healthy
+      kafka3:
+        condition: service_healthy
     ports:
       - "8082:8080"
     environment:
       KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "kafka1:29092,kafka2:29093,kafka3:29094"
       KAFKA_CLUSTERS_0_METRICS_PORT: 9997
       KAFKA_CLUSTERS_0_METRICS_TYPE: JMX
       DYNAMIC_CONFIG_ENABLED: "true"
@@ -86,13 +153,16 @@ services:
     restart: always
     image: kafka-app:latest
     depends_on:
-      kafka:
+      kafka1:
+        condition: service_healthy
+      kafka2:
+        condition: service_healthy
+      kafka3:
         condition: service_healthy
       postgres:
         condition: service_started
     environment:
-      BROKER_HOST: "kafka"
-      BROKER_PORT: "29092"
+      BROKER_CONFIG: "kafka1:29092,kafka2:29093,kafka3:29094"
       DB_NAME: "kafka_website"
       DB_PORT: "5432"
       DB_HOST: "postgres"
@@ -122,8 +192,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 1.2
-          memory: 1.2GB
+          cpus: 1
+          memory: 1GB
 
 
 

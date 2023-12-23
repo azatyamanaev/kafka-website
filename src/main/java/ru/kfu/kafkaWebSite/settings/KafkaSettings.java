@@ -16,16 +16,7 @@ public class KafkaSettings {
 
     public final static String SURVEY_TOPIC = "survey_responses";
 
-    private String brokerHost;
-    private String brokerPort;
-
-    @Getter
+    private String brokerConfig;
     private String consumerGroup;
-
-    @Getter
     private String trustedPackages;
-
-    public String getBrokerConfig() {
-        return brokerHost + ":" + brokerPort;
-    }
 }
