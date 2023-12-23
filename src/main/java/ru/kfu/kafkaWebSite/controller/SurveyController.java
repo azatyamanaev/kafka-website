@@ -2,7 +2,6 @@ package ru.kfu.kafkaWebSite.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import ru.kfu.kafkaWebSite.dto.survey.SurveyResponseDto;
 import ru.kfu.kafkaWebSite.dto.survey.SurveyStatDto;
 import ru.kfu.kafkaWebSite.security.details.UserDetailsImpl;
 import ru.kfu.kafkaWebSite.service.SurveyService;
-import ru.kfu.kafkaWebSite.settings.KafkaSettings;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -26,12 +24,10 @@ import java.util.Optional;
 public class SurveyController {
 
     private final SurveyService surveyService;
-    private final KafkaTemplate<String, SurveyResponseDto> kafkaTemplate;
 
     @Autowired
-    public SurveyController(SurveyService surveyService, KafkaTemplate<String, SurveyResponseDto> kafkaTemplate) {
+    public SurveyController(SurveyService surveyService) {
         this.surveyService = surveyService;
-        this.kafkaTemplate = kafkaTemplate;
     }
 
     @GetMapping
@@ -71,8 +67,7 @@ public class SurveyController {
     public ResponseEntity<?> endSurvey(@PathVariable(name = "id") Long surveyId,
                                        @RequestBody SurveyResponseDto surveyResponseDto) {
         System.out.println(surveyResponseDto);
-        kafkaTemplate.send(KafkaSettings.SURVEY_TOPIC, surveyResponseDto);
-        //surveyService.saveSurveyResponse(surveyResponseDto);
+        surveyService.saveSurveyResponse(surveyResponseDto);
         return ResponseEntity.ok("success");
     }
 

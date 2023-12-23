@@ -1,0 +1,46 @@
+version: '2'
+
+services:
+
+  app:
+    container_name: kafka-app
+    restart: always
+    image: kafka-app:latest
+    depends_on:
+      postgres:
+        condition: service_started
+    environment:
+      BROKER_CONFIG: "kafka1:29092,kafka2:29093,kafka3:29094"
+      SURVEY_REPLICAS: 1
+      SURVEY_PARTITIONS: 3
+      DB_NAME: "kafka_website"
+      DB_PORT: "5432"
+      DB_HOST: "postgres"
+      DB_USER: "postgres"
+      DB_PASS: "postgres"
+    ports:
+      - "8080:8080"
+    deploy:
+      resources:
+        limits:
+          cpus: 2.3
+          memory: 2GB
+
+
+  postgres:
+    container_name: postgres
+    restart: always
+    image: postgres:16-alpine
+    ports:
+      - "15432:15432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "kafka_website"
+    volumes:
+      - ./db-data/:/var/lib/postgresql/data/
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 1GB
