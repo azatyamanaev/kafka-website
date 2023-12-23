@@ -1,6 +1,6 @@
 package ru.kfu.kafkaWebSite.service.impl;
 
-import org.springframework.kafka.annotation.KafkaListener;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.kfu.kafkaWebSite.dto.survey.RespondentResponseDto;
 import ru.kfu.kafkaWebSite.dto.survey.SurveyDto;
@@ -15,6 +15,7 @@ import ru.kfu.kafkaWebSite.model.survey.SurveyResponse;
 import ru.kfu.kafkaWebSite.repository.survey.SurveyRepository;
 import ru.kfu.kafkaWebSite.repository.survey.SurveyResponseRepository;
 import ru.kfu.kafkaWebSite.service.SurveyService;
+import ru.kfu.kafkaWebSite.settings.KafkaSettings;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,19 +25,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class SurveyServiceImpl implements SurveyService {
 
     private final SurveyRepository surveyRepository;
     private final SurveyResponseRepository surveyResponseRepository;
     private final SurveyMapper surveyMapper;
     private final SurveyResponseMapper surveyResponseMapper;
-
-    public SurveyServiceImpl(SurveyMapper surveyMapper, SurveyRepository surveyRepository, SurveyResponseRepository surveyResponseRepository, SurveyResponseMapper surveyResponseMapper) {
-        this.surveyMapper = surveyMapper;
-        this.surveyRepository = surveyRepository;
-        this.surveyResponseRepository = surveyResponseRepository;
-        this.surveyResponseMapper = surveyResponseMapper;
-    }
 
     @Override
     public void createSurvey(SurveyDto surveyDto, User author) {
@@ -65,7 +60,6 @@ public class SurveyServiceImpl implements SurveyService {
                 .collect(Collectors.toList());
     }
 
-    @KafkaListener(topics = "surveyResponses", groupId = "group_id")
     @Override
     public void saveSurveyResponse(SurveyResponseDto surveyResponseDto) {
         SurveyResponse surveyResponse = surveyResponseMapper.toSurveyResponse(surveyResponseDto);

@@ -15,9 +15,9 @@ import org.springframework.context.annotation.Configuration;
 public class KafkaSettings {
 
     public final static String SURVEY_TOPIC = "survey_responses";
+    public final static String CONSUMER_GROUP = "survey_group";
 
     private String brokerConfig;
-    private String consumerGroup;
     private String trustedPackages;
     private Integer surveyReplicas;
     private Integer surveyPartitions;

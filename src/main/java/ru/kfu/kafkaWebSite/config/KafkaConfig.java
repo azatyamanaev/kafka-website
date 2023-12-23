@@ -68,7 +68,7 @@ public class KafkaConfig {
     public ConsumerFactory<String, SurveyResponseDto> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, settings.getBrokerConfig());
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, settings.getConsumerGroup());
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, KafkaSettings.CONSUMER_GROUP);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         props.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class);
@@ -83,21 +83,6 @@ public class KafkaConfig {
         ConcurrentKafkaListenerContainerFactory<String, SurveyResponseDto> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;
-    }
-
-    @Bean
-    public Consumer<String, SurveyResponseDto> surveyConsumer() {
-        Map<String, Object> props = new HashMap<>();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, settings.getBrokerConfig());
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, settings.getConsumerGroup());
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
-        props.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class);
-        props.put(JsonDeserializer.TRUSTED_PACKAGES, settings.getTrustedPackages());
-
-        Consumer<String, SurveyResponseDto> consumer = consumerFactory().createConsumer();
-        consumer.subscribe(List.of(KafkaSettings.SURVEY_TOPIC));
-        return consumer;
     }
 }
 
